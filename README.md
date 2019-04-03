@@ -10,7 +10,7 @@ Our current stack is primarily built in Node.js, Golang, and .NET.  Since this s
 
 ### Setup
 
-1. Fork or download the repo, or create a branch
+1. Download the repo
 2. Run `npm install` to install dependencies
 3. Run `npm test` to run unit tests
 4. Set your NODE_ENV to `dev`
@@ -31,10 +31,10 @@ Try to be consistent with Joe's implementation in terms of:
 * validation
 * etc.
 
-Commit your changes and open a PR, or zip your solution and send it to us/upload it somewhere outside git.
+Zip your solution, upload it somewhere, and send us a link to the zipped file.
 
 ### Bonus
-1. Some scenarios to consider (leave your thoughts inline in your code or in your PR or in the README):
+1. Some scenarios to consider (leave your thoughts inline in your code or edit the README):
   * How efficient is your code?  What are some ways that you could improve performance?
   * Suppose we expect this API to be hit 1000s of times a second.  How can we handle the load?
   * What if the 3rd party provider is not available?  How resilient is our API?
