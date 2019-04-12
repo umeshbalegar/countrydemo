@@ -80,13 +80,16 @@ This will just build the container for NodeJs app in the repo.
 <i><a name="footnote1"><sup>1</sup></a> Joe says that api.population.io is down, so try https://dyicn1e62j3n1.cloudfront.net as the host instead.</i>
 <br>
 
-# Architecture
+## Assumptions : 
+- As this data is country data, which hardly changes, it makes sense to cache it and serve the request from cache. 
+- The Population data changes daily, so we can cache once per day per country and use it for rest of the day.
+
+## Architecture
 
 <img src="arch.jpg"  width="100%">
 
-<br>
-Above architecture is configired with, 
-## NGINX Reverse Proxy
+### Core Components of the above architecture.
+#### NGINX Reverse Proxy
 The application has Nginx reverse proxy which is configured to take calls from the users on port 80. 
 Then it redirects the request to one of the 3 instances of Nodejs app containers, which will respond to the request.
 
@@ -96,24 +99,19 @@ There instances of the application will be started when you do
 docker-compose up
 `
 
-## Cache Layer
-### Assumptions : 
-1: As this data is country data, which hardly changes, it makes sense to cache it and serve the request from cache. 
-2: The Population data changes daily, so we can cache once per day per country and use it for rest of the day.
-
+#### Cache Layer
 Two Levels of chache is been added, 
-1: Local Inmemory node-cache, which caches everything which the node responds to. This is available as long as the system is not restarted. 
+- Local Inmemory node-cache, which caches everything which the node responds to. This is available as long as the system is not restarted. 
 Reason for this level of cache is to reduce the burden on Redis cluster which we are using as distributed cache. 
-
-2: Redis for full level of distributed caching, which acts as fall back layer for in memor cache, and the actuall api is the fall back for Redis. 
+- Redis for full level of distributed caching, which acts as fall back layer for in memor cache, and the actuall api is the fall back for Redis. 
 
 Having this kind of cache mechanism will increase the resilency and would reduce the calls to 3rd party servies significantly. 
 
 
-## What I could have done better or imporved. 
-Some of the things I would definetly would like to add to the application is some monitoring and metrics tools. 
-  - Distributed logging
-  - An APM monitor (Newrelic) which gives insights on how well the application is doing. 
-  - An Network tracing agent like zipkin which will make debugging much more easier.
+#### What I could have done better or imporved. 
+Some of the things I would definetly consider making it part of the application are, 
+- Distributed logging
+- An APM monitor (Newrelic) which gives insights on how well the application is doing. 
+- An Network tracing agent like zipkin which will make debugging much more easier.
   
 
