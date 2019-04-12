@@ -106,8 +106,9 @@ Having this kind of cache mechanism will increase the resilency and would reduce
 
 
 ## What I could have done better or imporved. 
-1: Some of the things I would definetly would like to add to the application is some monitoring and metrics tools. 
-  a: Distributed logging
-  b: An APM monitor (Newrelic) which gives insights on how well the application is doing. 
-  c: An Network tracing agent like zipkin which will make debugging much more easier.
+Some of the things I would definetly would like to add to the application is some monitoring and metrics tools. 
+  - Distributed logging
+  - An APM monitor (Newrelic) which gives insights on how well the application is doing. 
+  - An Network tracing agent like zipkin which will make debugging much more easier.
+  
 
