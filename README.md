@@ -36,8 +36,10 @@ Zip your solution, upload it somewhere, and send us a link to the zipped file.
 ### Bonus
 1. Some scenarios to consider (leave your thoughts inline in your code or edit the README):
   * How efficient is your code?  What are some ways that you could improve performance?
+  ![#1589F0](https://placehold.it/15/1589F0/000000?text=+)
     - Country service is linear time
     - Population service is linear for most of the operations + nlg(n) for sorting.
+  ![#1589F0](https://placehold.it/15/1589F0/000000?text=+)
 
   * Suppose we expect this API to be hit 1000s of times a second.  How can we handle the load?
     - In my docer-compose.yml i have provided a set up for 3 node cluster which will be orchestrated by nginx reverse proxy.
@@ -70,9 +72,9 @@ These files will be used to build the required images when you run the command
 docker-compose up
 ```
 
--- Architecture
+Architecture
 
-<img src="atom.png"  width="200" height="60">
+<img src="arch.png"  width="200" height="60">
 
 Above architecture is configired with, 
 - NGINX Reverse Proxy
@@ -80,7 +82,7 @@ The application has Nginx reverse proxy which is configured to take calls from t
 Then it redirects the request to one of the 3 instances of Nodejs app containers, which will respond to the request.
 
 - NodeJS Application Layer
-There instances of the application will be started when you do docker-compose up.
+There instances of the application will be started when you do `docker-compose up`.
 
 - Cache Layer
 Assumptions : 
