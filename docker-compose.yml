@@ -1,0 +1,43 @@
+nginx:
+    build: ./docker/ngnix
+    links:
+        - kaplanapp1:kaplan1
+        - kaplanapp2:kaplan2
+        - kaplanapp3:kaplan3
+    ports:
+        - "80:80"
+kaplanapp1:
+    build: .
+    links:
+      - redis
+    ports:
+      - '3000:3000'
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+kaplanapp2:
+    build: .
+    links:
+      - redis
+    ports:
+      - '3001:3001'
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+kaplanapp3:
+    build: .
+    links:
+      - redis
+    ports:
+      - '3002:3002'
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+redis:
+    build: ./docker/redis
+    container_name: redis
+    ports:
+      - '6379:6379'
+    environment:
+      REDIS_APPENDFSYNC: "always"
+      ALLOW_EMPTY_PASSWORD: "yes"

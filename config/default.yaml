@@ -5,6 +5,8 @@
     uri: localhost:3000
   routes:
     controllerRootUrl: '/api'
+  populationservice:
+    baseurl: 'http://dyicn1e62j3n1.cloudfront.net/1.0'
   logging:
     stdout:
       enabled: true
