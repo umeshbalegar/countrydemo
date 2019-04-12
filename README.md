@@ -85,7 +85,8 @@ docker-compose up
 
 3: Architecture
 
-<img src="arch.jpeg"  width="200" height="60">
+<img src="arch.jpg"  width="100%">
+
 
 Above architecture is configired with, 
 - NGINX Reverse Proxy
