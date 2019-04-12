@@ -37,28 +37,26 @@ Zip your solution, upload it somewhere, and send us a link to the zipped file.
 1. Some scenarios to consider (leave your thoughts inline in your code or edit the README):
   * How efficient is your code?  What are some ways that you could improve performance?
 >    - Country service is linear time
->    - Population service is linear for most of the operations + nlg(n) for sorting.
+>    - Population service is linear for most of the operations its linear and nlog(n) for sorting.
 
   * Suppose we expect this API to be hit 1000s of times a second.  How can we handle the load?
->    - In my docer-compose.yml i have provided a set up for 3 node cluster which will be orchestrated by nginx reverse proxy.
->    - If need arise we can increase the number of application nodes and we should be able to handle the load required. 
+>    - The docker-compose.yml contains set up for 3 nodeJS Nodes which will be load balanced by nginx reverse proxy. Please refer to Architecture section below. This can handle approximately 1024 request as of now, but can be configured as per our needs.
+>    - If need arise we can increase the number of application nodes and we should be able to handle the load required. This could be easily achieved when we use kubernetes as our platform, which can auto scale based on the incoming load.
 
   * What if the 3rd party provider is not available?  How resilient is our API? 
 >    - I have provided the 2 levels of cache implemenation which should have very less impact on the service availibility. 
 >    - If the service is not available for more than 24hrs then we would not be able to give them any population results.
 >    - However we can render the countries list from our cache until something really cahnges in the list. 
 
-
   * What if the requirement for the new endpoint was to also allow the consumer to compare populations for any given date.  How would you modify your implementation?
 >    - As I understand the new requirement would be to compare populations for one particular day. Then there is not much change required. 
->    - Currently I am defaulting the date to today's date, So having an other method which will accept the custom date should be built and reuse the same logic i have for sorting today. 
+>    - Currently I am defaulting the date to today's date, So having an other method which will accept the custom date should be built and reuse the same logic I have for sorting today. 
 
   * What if we have a database of users and we wanted to make our API smarter by defaulting comparisons to always include the population of the current user's country.  How could we accomplish this?
->    - If we know the user and his country, then it would be very easy to using the population-helper function i have inplace, just passing the country of the user will fetch us the population and we can display that.
-
+>    - If we know the user and his country, the new service endpoint should call the provided population-helper function which returns the country population for that day, I believe that should satisfy the requirement needs.
 
   * What if we wanted to keep a tally of the most frequently requested countries and have this be available to consumers.  How could we accomplish this?
->    - This would need a distributed counter per country (as we have it scaled out on multiple nodes). We can apply the CRDT (Conflict-free replicated Datatype) pattern to our population service and this can get us the real time counts for the countries in deamand. 
+>    - This would need a distributed counter per country (as we have it scaled out on multiple nodes). We can apply the CRDT (Conflict-free replicated Datatype) pattern to our population service, which helps us create separate counters for each country, at the same time communicate per node counts to all its peers, this can get us the real time counts for the countries in deamand. 
 
 2. Dockerize the API
 >I have added below files for dockerizing it. 
@@ -72,7 +70,14 @@ These files will be used to build the required images when you run the command
 docker-compose up
 ```
 <br>
-<i><a name="footnote1"><sup>1</sup></a> Joe says that api.population.io is down, so try https://dyicn1e62j3n1.cloudfront.net as the host instead.<i>
+
+If you wish to just build a docker container of the app, Please use below command
+```
+docker build . -t <tagname>:<version>
+```
+This will just build the container for NodeJs app in the repo. 
+<br>
+<i><a name="footnote1"><sup>1</sup></a> Joe says that api.population.io is down, so try https://dyicn1e62j3n1.cloudfront.net as the host instead.</i>
 <br>
 
 # Architecture
