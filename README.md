@@ -36,10 +36,8 @@ Zip your solution, upload it somewhere, and send us a link to the zipped file.
 ### Bonus
 1. Some scenarios to consider (leave your thoughts inline in your code or edit the README):
   * How efficient is your code?  What are some ways that you could improve performance?
-  ![#1589F0](https://placehold.it/15/1589F0/000000?text=+)
-    - Country service is linear time
-    - Population service is linear for most of the operations + nlg(n) for sorting.
-  ![#1589F0](https://placehold.it/15/1589F0/000000?text=+)
+```    - Country service is linear time
+    - Population service is linear for most of the operations + nlg(n) for sorting.```
 
   * Suppose we expect this API to be hit 1000s of times a second.  How can we handle the load?
     - In my docer-compose.yml i have provided a set up for 3 node cluster which will be orchestrated by nginx reverse proxy.
