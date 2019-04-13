@@ -57,11 +57,17 @@ async function getPopulationCounts(countries, sort) {
 
   // Sort based on the params passed.
   if (sort && sort.toUpperCase() === 'ASC') {
-    retVal.sort((obj1, obj2) => obj1.total_population.population -
-                                obj2.total_population.population);
+    retVal.sort((obj1, obj2) => {
+      const v1 = obj1.total_population.population ? obj1.total_population.population : 0;
+      const v2 = obj2.total_population.population ? obj2.total_population.population : 0;
+      return v1 - v2;
+    });
   } else if (sort && sort.toUpperCase() === 'DESC') {
-    retVal.sort((obj1, obj2) => obj2.total_population.population -
-                                obj1.total_population.population);
+    retVal.sort((obj1, obj2) => {
+      const v1 = obj1.total_population.population ? obj1.total_population.population : 0;
+      const v2 = obj2.total_population.population ? obj2.total_population.population : 0;
+      return v2 - v1;
+    });
   }
 
   return retVal;

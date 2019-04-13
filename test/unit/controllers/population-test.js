@@ -122,6 +122,50 @@ describe('population endpoint tests', () => {
         });
     });
 
+    it('should return wrong country value first when sorting in Ascending order, as population is set to 0 by default',
+    function handlePostingForPopulationData(done) {
+      sandbox.stub(populationController, 'getPopulation').returns(mockPopulation);
+      const retVal = [{ total_population: {}, country: 'AFRICAAA' },
+                      { total_population: { date: '2019-04-12', population: 2925686 }, country: 'Albania' },
+                      { total_population: { date: '2019-04-12', population: 35523682 }, country: 'Afghanistan' }];
+      request(app)
+        .post(`${endpointUrl}`)
+        .send({ countries: [ 'Afghanistan', 'AFRICAAA', 'Albania'], sort: 'asc' })
+        .set('accept', 'application/json')
+        .expect(200)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          res.body.should.be.an.array;
+          res.body.length.should.be.eql(3);
+          res.body.should.eql(retVal);
+          return done();
+        });
+    });
+
+    it('should return wrong country value last when sorting in Descending order, as population is set to 0 by default',
+    function handlePostingForPopulationData(done) {
+      sandbox.stub(populationController, 'getPopulation').returns(mockPopulation);
+      const retVal = [{ total_population: { date: '2019-04-12', population: 35523682 }, country: 'Afghanistan' },
+                      { total_population: { date: '2019-04-12', population: 2925686 }, country: 'Albania' },
+                      { total_population: {}, country: 'AFRICAAA' }];
+      request(app)
+        .post(`${endpointUrl}`)
+        .send({ countries: [ 'Afghanistan', 'AFRICAAA', 'Albania'], sort: 'desc' })
+        .set('accept', 'application/json')
+        .expect(200)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          res.body.should.be.an.array;
+          res.body.length.should.be.eql(3);
+          res.body.should.eql(retVal);
+          return done();
+        });
+    });
+    
     it('should return 400 error if countries attribute is not sent as part of body',
     function handlePostingForPopulationData(done) {
       sandbox.stub(populationController, 'getPopulation').returns(mockPopulation);
