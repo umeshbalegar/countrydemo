@@ -108,10 +108,35 @@ Reason for this level of cache is to reduce the burden on Redis cluster which we
 Having this kind of cache mechanism will increase the resilency and would reduce the calls to 3rd party servies significantly. 
 
 
+#### Package & Files added
+##### Package "service"
+This package includes cacheservice and httpservice
+- cacheservice has all the files required for Cache Layer describe above. 
+  - 2 Classes 
+    - Cache.js - which is the entry point to the cache service.
+    - RedisCacheService.js - has all the required code for connecting to Redis instance when available. 
+
+- httpservice has files required to make fetch calls to the external service. 
+  - 2 methods fetchUrl (to fetch 1 url), fetchUrls(to fetch multiple urls at once).
+
+##### Package 'controllers'
+Added population package under controllers which includes all the necessary code for making the service API calls to get Population counts.
+- population.controller.js - main file which has the validation check and calling population-helper.js getPopulationCount() method.
+- index.js - Routing path defintion. 
+
+##### Package 'lib'
+Added population-helper.js class which has the logic to fetch population based on the contries list sent in the request.
+It also sorts the output based on sort option specified.
+
+#### Testing files
+Added population-test.js for testing population service. 
+
 #### What I could have done better or imporved. 
 Some of the things I would definetly consider making it part of the application are, 
 - Distributed logging
-- An APM monitor (Newrelic) which gives insights on how well the application is doing. 
+- Healthchecks to make sure all the available services are up or not, this way we would know when the services are down.
+- An APM monitor (Newrelic, Datadog) which gives insights on how well the application is doing. 
 - An Network tracing agent like zipkin which will make debugging much more easier.
+- Security of the application adding https, and some level of authorization by adding a Gateway in front of the NGINX service.
+  - Simple one would be users registring for this service will get a api key, and use this for calling service.
   
-

@@ -36,5 +36,24 @@ describe('countries endpoint tests', () => {
         return done();
       });
     });
+
+    it('should return hardcoded values if error getting countries',
+      function handleErrorGettingCountries(done) {
+        const error = new Error('fake error');
+        sandbox.stub(countryHelper, 'getCountries').throws(error);
+
+        request(app)
+          .get(`${endpointUrl}`)
+          .set('accept', 'application/json')
+          .expect(200)
+          .end((err, res) => {
+            if (err) {
+              return done(err);
+            }
+            res.body.should.be.an.array;
+            res.body.should.eql(mockCountries);
+            return done();
+          });
+      });
   });
 });
