@@ -21,8 +21,8 @@ app.acceptable = config.accept;
 app.use(plugins.acceptParser(app.acceptable));
 app.use(plugins.authorizationParser());
 app.use(plugins.queryParser({ mapParams: true }));
-app.use(plugins.jsonBodyParser({ mapParams: true }));
-// app.use(plugins.bodyParser());
+// app.use(plugins.jsonBodyParser({ mapParams: true }));
+app.use(plugins.bodyParser());
 app.use(plugins.fullResponse());
 app.use(plugins.requestLogger());
 

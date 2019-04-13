@@ -1,0 +1,23 @@
+[
+  {
+      "total_population": {
+          "date": "2019-04-12",
+          "population": 35523682
+      },
+      "country": "Afghanistan"
+  },
+  {
+      "total_population": {
+        "date": "2019-04-12",
+        "population": 1301614284
+      },
+      "country": "AFRICA"
+  },
+  {
+      "total_population": {
+          "date": "2019-04-12",
+          "population": 2925686
+      },
+      "country": "Albania"
+  }
+]

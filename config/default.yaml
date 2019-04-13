@@ -7,6 +7,9 @@
     controllerRootUrl: '/api'
   populationservice:
     baseurl: 'http://dyicn1e62j3n1.cloudfront.net/1.0'
+  redis:
+    maxRetriesPerRequest: 1
+    connectionTimeout: 5000
   logging:
     stdout:
       enabled: true

@@ -19,7 +19,7 @@ const Util = require('../../lib/util');
  * If everything looks good w.r.t request body, I pull the pouplation info.
  * sort is optional, You can specify either 'ASC' or 'DESC' or nothing at all.
  */
-exports.getPopulation = co.wrap(function* getCountries(req, res, next) {
+exports.getPopulation = co.wrap(function* getPopulation(req, res, next) {
   try {
     const input = req.body || {};
     if (input === null || input === {}) {
@@ -32,7 +32,6 @@ exports.getPopulation = co.wrap(function* getCountries(req, res, next) {
     if (!Util.isArray(input.countries)) {
       return next(new errors.BadRequestError('Invalid input, countries should be an array'));
     }
-
     const population = yield pHelper.getPopulationCounts(input.countries, input.sort);
     res.json(population);
     return next();

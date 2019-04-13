@@ -12,7 +12,6 @@ const countryHelper = require('../../lib/country-helper');
  */
 exports.getCountries = co.wrap(function* getCountries(req, res, next) {
   try {
-    // const countries = countryHelper.getCountries();
     const countries = yield countryHelper.getAsyncCountries();
     res.json(countries);
     return next();
