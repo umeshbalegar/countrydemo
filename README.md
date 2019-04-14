@@ -37,7 +37,8 @@ Zip your solution, upload it somewhere, and send us a link to the zipped file.
 1. Some scenarios to consider (leave your thoughts inline in your code or edit the README):
   * How efficient is your code?  What are some ways that you could improve performance?
 >    - Country service is linear time
->    - Population service is linear for most of the operations its linear and nlog(n) for sorting.
+>    - Population service is linear for most of the operations and nlog(n) for sorting. 
+>    - For imporvement please review the section [Go to Future improvements](#Future)
 
   * Suppose we expect this API to be hit 1000s of times a second.  How can we handle the load?
 >    - The docker-compose.yml contains set up for 3 nodeJS Nodes which will be load balanced by nginx reverse proxy. Please refer to Architecture section below. This can handle approximately 1024 request as of now, but can be configured as per our needs.
@@ -131,6 +132,7 @@ It also sorts the output based on sort option specified.
 ### Testing files
 Added population-test.js for testing population service. 
 
+#Future Improvements
 ### What I could have done better or imporved. 
 Some of the things I would definetly consider making it part of the application are, 
 - Distributed logging
