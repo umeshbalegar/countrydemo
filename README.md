@@ -108,8 +108,8 @@ Reason for this level of cache is to reduce the burden on Redis cluster which we
 Having this kind of cache mechanism will increase the resilency and would reduce the calls to 3rd party servies significantly. 
 
 
-#### Package & Files added
-##### Package "service"
+### Package & Files added
+#### Package "service"
 This package includes cacheservice and httpservice
 - cacheservice has all the files required for Cache Layer describe above. 
   - 2 Classes 
@@ -119,19 +119,19 @@ This package includes cacheservice and httpservice
 - httpservice has files required to make fetch calls to the external service. 
   - 2 methods fetchUrl (to fetch 1 url), fetchUrls(to fetch multiple urls at once).
 
-##### Package 'controllers'
+#### Package 'controllers'
 Added population package under controllers which includes all the necessary code for making the service API calls to get Population counts.
 - population.controller.js - main file which has the validation check and calling population-helper.js getPopulationCount() method.
 - index.js - Routing path defintion. 
 
-##### Package 'lib'
+#### Package 'lib'
 Added population-helper.js class which has the logic to fetch population based on the contries list sent in the request.
 It also sorts the output based on sort option specified.
 
-#### Testing files
+### Testing files
 Added population-test.js for testing population service. 
 
-#### What I could have done better or imporved. 
+### What I could have done better or imporved. 
 Some of the things I would definetly consider making it part of the application are, 
 - Distributed logging
 - Healthchecks to make sure all the available services are up or not, this way we would know when the services are down.
