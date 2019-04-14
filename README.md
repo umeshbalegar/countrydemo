@@ -139,4 +139,4 @@ Some of the things I would definetly consider making it part of the application 
 - An Network tracing agent like zipkin which will make debugging much more easier.
 - Security of the application adding https, and some level of authorization by adding a Gateway in front of the NGINX service.
   - Simple one would be users registring for this service will get a api key, and use this for calling service.
-  
+- Test cases for Cache services.
